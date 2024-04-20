@@ -12,6 +12,6 @@ public class Main
 
         MySimulation s = new MySimulation(Konstanty.TRVANIE_CAS_SEKUNDY);
         s.onSimulationWillStart(e -> System.out.println("Simulacia spustena"));
-        s.simulate(25000, Konstanty.TRVANIE_CAS_SEKUNDY);
+        s.simulate(100000, Konstanty.TRVANIE_CAS_SEKUNDY);
     }
 }

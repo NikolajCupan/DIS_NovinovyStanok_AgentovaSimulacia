@@ -47,7 +47,7 @@ public class ProcessObsluhaZakaznika extends Process
 		switch (message.code())
 		{
 		case Mc.holdObsluhaZakaznika:
-			assistantFinished(message);
+			this.assistantFinished(message);
 			break;
 		default:
 			throw new RuntimeException("Neznamy kod spravy!");

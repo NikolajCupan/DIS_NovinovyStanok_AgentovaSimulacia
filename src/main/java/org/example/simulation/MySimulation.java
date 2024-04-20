@@ -9,7 +9,9 @@ public class MySimulation extends Simulation
 	private double trvanieSimulacie;
 
 	// Statistiky
+	private Stat statCakanieSystem;
 	private Stat statCakanieFrontStanok;
+	private Stat statRadFrontStanok;
 
 	public void customInit(double trvanieSimulacie)
 	{
@@ -23,7 +25,9 @@ public class MySimulation extends Simulation
 
 	public void customPrepareSimulation()
 	{
+		this.statCakanieSystem = new Stat();
 		this.statCakanieFrontStanok = new Stat();
+		this.statRadFrontStanok = new Stat();
 	}
 
 	public void customPrepareReplication()
@@ -35,17 +39,21 @@ public class MySimulation extends Simulation
 	public void customReplicationFinished()
 	{
 		int aktualnaReplikacia = this.currentReplication() + 1;
-		if (aktualnaReplikacia % 5000 == 0)
+		if (aktualnaReplikacia % 1000 == 0)
 		{
 			System.out.println("Aktualna replikacia: " + aktualnaReplikacia);
 		}
 
 		this.statCakanieFrontStanok.addSample(this.agentStanok().getPriemerneCakanieFrontStanok());
+		this.statCakanieSystem.addSample(this.agentOkolie().getPriemerneCakanieSystem());
+		this.statRadFrontStanok.addSample(this.agentStanok().getPriemernyRadFrontStanok());
 	}
 
 	public void customSimulationFinished()
 	{
-		System.out.println("Priemerne cakanie: " + this.statCakanieFrontStanok.mean());
+		System.out.println("Priemerne cakanie system: " + this.statCakanieSystem.mean());
+		System.out.println("Priemerne cakanie front stanok: " + this.statCakanieFrontStanok.mean());
+		System.out.println("Priemerne rad front stanok: " + this.statRadFrontStanok.mean());
 	}
 
 	public double getTrvanieSimulacie()

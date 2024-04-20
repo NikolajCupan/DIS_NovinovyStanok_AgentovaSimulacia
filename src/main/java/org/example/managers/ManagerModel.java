@@ -31,6 +31,9 @@ public class ManagerModel extends Manager
 	//meta! sender="AgentStanok", id="10", type="Response"
 	public void processRequestResponseObsluhaZakaznika(MessageForm message)
 	{
+		message.setCode(Mc.noticeOdchodZakaznika);
+		message.setAddressee(Id.agentOkolie);
+		this.notice(message);
     }
 
 	//meta! sender="AgentOkolie", id="9", type="Notice"
@@ -38,7 +41,7 @@ public class ManagerModel extends Manager
 	{
 		message.setCode(Mc.requestResponseObsluhaZakaznika);
 		message.setAddressee(Id.agentStanok);
-		request(message);
+		this.request(message);
     }
 
 	//meta! userInfo="Process messages defined in code", id="0"

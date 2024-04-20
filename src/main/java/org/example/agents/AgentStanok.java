@@ -28,6 +28,11 @@ public class AgentStanok extends Agent
 		this.stanokObsadeny = false;
 	}
 
+	public double getPriemernyRadFrontStanok()
+	{
+		return this.frontStanok.lengthStatistic().mean();
+	}
+
 	public double getPriemerneCakanieFrontStanok()
 	{
 		return this.statCakanieFrontStanok.mean();

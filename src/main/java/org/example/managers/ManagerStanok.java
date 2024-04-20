@@ -18,7 +18,7 @@ public class ManagerStanok extends Manager
 		this.myAgent().obsadStanok(obsluhaZakaznikaSprava);
 		this.myAgent().pridajCakanieFrontStanok(obsluhaZakaznikaSprava);
 		obsluhaZakaznikaSprava.setAddressee(this.myAgent().findAssistant(Id.processObsluhaZakaznika));
-		startContinualAssistant(obsluhaZakaznikaSprava);
+		this.startContinualAssistant(obsluhaZakaznikaSprava);
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class ManagerStanok extends Manager
 
 		// Oznamenie ukoncenia obsluhy zakaznika
 		message.setCode(Mc.requestResponseObsluhaZakaznika);
-		response(message);
+		this.response(message);
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"

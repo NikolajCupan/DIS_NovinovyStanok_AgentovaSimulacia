@@ -45,7 +45,7 @@ public class ManagerOkolie extends Manager
 	{
 		MyMessage spusteniePrichodovSprava = new MyMessage(this.mySim());
 		spusteniePrichodovSprava.setAddressee(this.myAgent().findAssistant(Id.schedulerPrichodZakaznika));
-		startContinualAssistant(spusteniePrichodovSprava);
+		this.startContinualAssistant(spusteniePrichodovSprava);
 	}
 
 	//meta! sender="SchedulerPrichodZakaznika", id="23", type="Notice"
@@ -54,12 +54,14 @@ public class ManagerOkolie extends Manager
 		// Oznam o prichode zakaznika
 		message.setCode(Mc.noticePrichodZakaznika);
 		message.setAddressee(Id.agentModel);
-		notice(message);
+		this.notice(message);
 	}
 
 	//meta! sender="AgentModel", id="26", type="Notice"
 	public void processNoticeOdchodZakaznika(MessageForm message)
 	{
+		((MyMessage)message).setKoniecCakanieSystem(this.mySim().currentTime());
+		this.myAgent().pridajCakanieSystem(message);
 	}
 
 	//meta! userInfo="Generated code: do not modify", tag="begin"

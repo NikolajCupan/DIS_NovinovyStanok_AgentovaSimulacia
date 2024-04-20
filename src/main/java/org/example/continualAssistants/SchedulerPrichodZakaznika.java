@@ -43,6 +43,7 @@ public class SchedulerPrichodZakaznika extends Scheduler
 		}
 		else
 		{
+			((MyMessage)message).setZaciatokCakanieSystem(this.mySim().currentTime() + trvaniePrichodu);
 			message.setCode(Mc.holdPrichodZakaznika);
 			hold(trvaniePrichodu, message);
 		}
@@ -64,12 +65,14 @@ public class SchedulerPrichodZakaznika extends Scheduler
 			}
 			else
 			{
+				// Dalsi prichod
+				(dalsiPrichodSprava).setZaciatokCakanieSystem(this.mySim().currentTime() + trvaniePrichodu);
 				hold(trvaniePrichodu, dalsiPrichodSprava);
 
 				// Oznamenie prichodu svojmu manazerovi
 				message.setCode(Mc.noticeVnutornaPrichodZakaznika);
 				message.setAddressee(this.myAgent().manager());
-				notice(message);
+				this.notice(message);
 			}
 			break;
 		default:
