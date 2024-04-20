@@ -5,6 +5,7 @@ import org.example.simulation.*;
 import org.example.agents.*;
 import org.example.continualAssistants.*;
 import org.example.instantAssistants.*;
+import org.example.vlastne.Prezenter;
 
 //meta! id="1"
 public class ManagerModel extends Manager
@@ -30,12 +31,16 @@ public class ManagerModel extends Manager
 	//meta! sender="AgentStanok", id="10", type="Response"
 	public void processRequestResponseObsluhaZakaznika(MessageForm message)
 	{
-	}
+		System.out.println("Ukoncenie obsluhy zakaznika v: " + Prezenter.naformatujCas(this.mySim().currentTime()));
+    }
 
 	//meta! sender="AgentOkolie", id="9", type="Notice"
 	public void processNoticePrichodZakaznika(MessageForm message)
 	{
-	}
+		message.setCode(Mc.requestResponseObsluhaZakaznika);
+		message.setAddressee(Id.agentStanok);
+		request(message);
+    }
 
 	//meta! userInfo="Process messages defined in code", id="0"
 	public void processDefault(MessageForm message)

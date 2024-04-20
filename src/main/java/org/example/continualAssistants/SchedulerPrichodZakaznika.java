@@ -5,19 +5,25 @@ import OSPRNG.ExponentialRNG;
 import org.example.simulation.*;
 import org.example.agents.*;
 import org.example.vlastne.GeneratorNasad;
+import org.example.vlastne.Prezenter;
 
 //meta! id="11"
 public class SchedulerPrichodZakaznika extends Scheduler
 {
-	private final GeneratorNasad rngGeneratorNasad;
-	private final ExponentialRNG rngPrichodZakaznika;
+	private GeneratorNasad rngGeneratorNasad;
+	private ExponentialRNG rngPrichodZakaznika;
+
+	public void customInit()
+	{
+		this.rngGeneratorNasad = new GeneratorNasad();
+		this.rngPrichodZakaznika = new ExponentialRNG(20.0, this.rngGeneratorNasad.generator());
+	}
 
 	public SchedulerPrichodZakaznika(int id, Simulation mySim, CommonAgent myAgent)
 	{
 		super(id, mySim, myAgent);
 
-		this.rngGeneratorNasad = new GeneratorNasad();
-		this.rngPrichodZakaznika = new ExponentialRNG(120.0, this.rngGeneratorNasad.generator());
+		this.customInit();
 	}
 
 	@Override
@@ -40,11 +46,25 @@ public class SchedulerPrichodZakaznika extends Scheduler
 		switch (message.code())
 		{
 		case Mc.holdPrichodZakaznika:
+			// Dalsi prichod
 			MyMessage dalsiPrichodSprava = (MyMessage)message.createCopy();
-			hold(this.rngPrichodZakaznika.sample(), dalsiPrichodSprava);
 
-			assistantFinished(message);
+			double trvaniePrichodu = this.rngPrichodZakaznika.sample();
+			if (this.mySim().currentTime() + trvaniePrichodu > ((MySimulation)this.mySim()).getTrvanieSimulacie())
+			{
+				// Vyprsanie simulacneho casu, neplanuj dalsie prichody
+				System.out.println("Ukoncenie planovania prichodov, dalsi prichod by bol v: "
+					+ Prezenter.naformatujCas(this.mySim().currentTime() + trvaniePrichodu));
+			}
+			else
+			{
+				hold(trvaniePrichodu, dalsiPrichodSprava);
 
+				// Oznamenie prichodu svojmu manazerovi
+				message.setCode(Mc.noticeVnutornaPrichodZakaznika);
+				message.setAddressee(this.myAgent().manager());
+				notice(message);
+			}
 			break;
 		default:
 			throw new RuntimeException("Neznamy kod spravy!");

@@ -1,16 +1,30 @@
 package org.example.continualAssistants;
 
 import OSPABA.*;
+import OSPRNG.ExponentialRNG;
+import OSPRNG.TriangularRNG;
 import org.example.simulation.*;
 import org.example.agents.*;
 import OSPABA.Process;
+import org.example.vlastne.GeneratorNasad;
 
 //meta! id="14"
 public class ProcessObsluhaZakaznika extends Process
 {
+	private GeneratorNasad rngGeneratorNasad;
+	private TriangularRNG rngObsluhaZakaznika;
+
+	public void customInit()
+	{
+		this.rngGeneratorNasad = new GeneratorNasad();
+		this.rngObsluhaZakaznika = new TriangularRNG(10.0, 100.0, 150.0, this.rngGeneratorNasad.generator());
+	}
+
 	public ProcessObsluhaZakaznika(int id, Simulation mySim, CommonAgent myAgent)
 	{
 		super(id, mySim, myAgent);
+
+		this.customInit();
 	}
 
 	@Override
@@ -23,6 +37,8 @@ public class ProcessObsluhaZakaznika extends Process
 	//meta! sender="AgentStanok", id="15", type="Start"
 	public void processStart(MessageForm message)
 	{
+		message.setCode(Mc.holdObsluhaZakaznika);
+		hold(this.rngObsluhaZakaznika.sample(), message);
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"
@@ -30,6 +46,11 @@ public class ProcessObsluhaZakaznika extends Process
 	{
 		switch (message.code())
 		{
+		case Mc.holdObsluhaZakaznika:
+			assistantFinished(message);
+			break;
+		default:
+			throw new RuntimeException("Neznamy kod spravy!");
 		}
 	}
 

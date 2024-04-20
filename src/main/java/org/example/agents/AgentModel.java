@@ -3,12 +3,18 @@ package org.example.agents;
 import OSPABA.*;
 import org.example.simulation.*;
 import org.example.managers.*;
-import org.example.continualAssistants.*;
-import org.example.instantAssistants.*;
 
 //meta! id="1"
 public class AgentModel extends Agent
 {
+	public void odosliInicializacnuSpravu()
+	{
+		MyMessage inicializacnaSprava = new MyMessage(this.mySim());
+		inicializacnaSprava.setCode(Mc.noticeInicializaciaSimulacie);
+		inicializacnaSprava.setAddressee(Id.agentOkolie);
+		this.manager().notice(inicializacnaSprava);
+	}
+
 	public AgentModel(int id, Simulation mySim, Agent parent)
 	{
 		super(id, mySim, parent);
@@ -30,12 +36,4 @@ public class AgentModel extends Agent
 		addOwnMessage(Mc.noticePrichodZakaznika);
 	}
 	//meta! tag="end"
-
-	public void inicializuj()
-	{
-		MyMessage inicializacnaSprava = new MyMessage(mySim());
-		inicializacnaSprava.setCode(Mc.noticeInicializaciaSimulacie);
-		inicializacnaSprava.setAddressee(Id.agentOkolie);
-		manager().notice(inicializacnaSprava);
-	}
 }

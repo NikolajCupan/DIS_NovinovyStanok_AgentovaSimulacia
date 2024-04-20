@@ -13,4 +13,5 @@ public class Mc extends IdList
 
 	// 1..1000 range reserved for user
 	public static final int holdPrichodZakaznika = 1;
+	public static final int holdObsluhaZakaznika = 2;
 }

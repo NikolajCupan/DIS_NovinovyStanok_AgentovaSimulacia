@@ -5,9 +5,34 @@ import org.example.agents.*;
 
 public class MySimulation extends Simulation
 {
-	public MySimulation()
+	private double trvanieSimulacie;
+
+	public void customInit(double trvanieSimulacie)
+	{
+		if (trvanieSimulacie <= 0)
+		{
+			throw new RuntimeException("Trvanie simulacie musi byt vacsie ako 0!");
+		}
+
+		this.trvanieSimulacie = trvanieSimulacie;
+	}
+
+	public void customPrepareReplication()
+	{
+		// Spustenie simulacie
+		this.agentModel().odosliInicializacnuSpravu();
+	}
+
+	public double getTrvanieSimulacie()
+	{
+		return this.trvanieSimulacie;
+	}
+
+	public MySimulation(double trvanieSimulacie)
 	{
 		init();
+
+		this.customInit(trvanieSimulacie);
 	}
 
 	@Override
@@ -23,8 +48,7 @@ public class MySimulation extends Simulation
 		super.prepareReplication();
 		// Reset entities, queues, local statistics, etc...
 
-		// Spustenie simulacie
-		agentModel().inicializuj();
+		this.customPrepareReplication();
 	}
 
 	@Override

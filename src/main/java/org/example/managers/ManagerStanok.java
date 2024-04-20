@@ -3,8 +3,6 @@ package org.example.managers;
 import OSPABA.*;
 import org.example.simulation.*;
 import org.example.agents.*;
-import org.example.continualAssistants.*;
-import org.example.instantAssistants.*;
 
 //meta! id="6"
 public class ManagerStanok extends Manager
@@ -13,6 +11,14 @@ public class ManagerStanok extends Manager
 	{
 		super(id, mySim, myAgent);
 		init();
+	}
+
+	private void zacniObsluhuZakaznika(MessageForm obsluhaZakaznikaSprava)
+	{
+		this.myAgent().obsadStanok(obsluhaZakaznikaSprava);
+		this.myAgent().pridajCakanieFrontStanok(obsluhaZakaznikaSprava);
+		obsluhaZakaznikaSprava.setAddressee(this.myAgent().findAssistant(Id.processObsluhaZakaznika));
+		startContinualAssistant(obsluhaZakaznikaSprava);
 	}
 
 	@Override
@@ -30,11 +36,37 @@ public class ManagerStanok extends Manager
 	//meta! sender="AgentModel", id="10", type="Request"
 	public void processRequestResponseObsluhaZakaznika(MessageForm message)
 	{
+		((MyMessage)message).setZaciatokCakanieStanok(this.mySim().currentTime());
+
+		if (this.myAgent().getStanokObsadeny())
+		{
+			// Niekto je uz obsluhovany
+			this.myAgent().pridajFrontStanok(message);
+		}
+		else
+		{
+			// Nikto nie je obsluhovany
+			this.zacniObsluhuZakaznika(message);
+		}
 	}
 
 	//meta! sender="ProcessObsluhaZakaznika", id="15", type="Finish"
 	public void processFinish(MessageForm message)
 	{
+		// Obsluha zakaznika bola ukoncena
+		this.myAgent().uvolniStanok();
+
+		// Naplanovanie dalsej obsluhy za podmienky, ze front nie je prazdny
+		if (!this.myAgent().jeFrontPrazdny())
+		{
+			// Front nie je prazdny, naplanovanie obsluhy
+			MyMessage obsluhaDalsiehoZakaznikaSprava = (MyMessage)this.myAgent().vyberFrontStanok();
+			this.zacniObsluhuZakaznika(obsluhaDalsiehoZakaznikaSprava);
+		}
+
+		// Oznamenie ukoncenia obsluhy zakaznika
+		message.setCode(Mc.requestResponseObsluhaZakaznika);
+		response(message);
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"

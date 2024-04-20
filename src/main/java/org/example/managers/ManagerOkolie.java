@@ -9,13 +9,6 @@ import org.example.instantAssistants.*;
 //meta! id="4"
 public class ManagerOkolie extends Manager
 {
-	private void zacniPlanovaniePrichodovZakaznikov()
-	{
-		MyMessage spusteniePrichodovSprava = new MyMessage(mySim());
-		spusteniePrichodovSprava.setAddressee(myAgent().findAssistant(Id.schedulerPrichodZakaznika));
-		startContinualAssistant(spusteniePrichodovSprava);
-	}
-
 	public ManagerOkolie(int id, Simulation mySim, Agent myAgent)
 	{
 		super(id, mySim, myAgent);
@@ -50,12 +43,18 @@ public class ManagerOkolie extends Manager
 	//meta! sender="AgentModel", id="21", type="Notice"
 	public void processNoticeInicializaciaSimulacie(MessageForm message)
 	{
-		this.zacniPlanovaniePrichodovZakaznikov();
+		MyMessage spusteniePrichodovSprava = new MyMessage(this.mySim());
+		spusteniePrichodovSprava.setAddressee(this.myAgent().findAssistant(Id.schedulerPrichodZakaznika));
+		startContinualAssistant(spusteniePrichodovSprava);
 	}
 
 	//meta! sender="SchedulerPrichodZakaznika", id="23", type="Notice"
 	public void processNoticeVnutornaPrichodZakaznika(MessageForm message)
 	{
+		// Oznam o prichode zakaznika
+		message.setCode(Mc.noticePrichodZakaznika);
+		message.setAddressee(Id.agentModel);
+		notice(message);
 	}
 
 	//meta! userInfo="Generated code: do not modify", tag="begin"
