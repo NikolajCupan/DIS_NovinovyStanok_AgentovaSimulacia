@@ -53,6 +53,11 @@ public class ManagerOkolie extends Manager
 		this.zacniPlanovaniePrichodovZakaznikov();
 	}
 
+	//meta! sender="SchedulerPrichodZakaznika", id="23", type="Notice"
+	public void processNoticeVnutornaPrichodZakaznika(MessageForm message)
+	{
+	}
+
 	//meta! userInfo="Generated code: do not modify", tag="begin"
 	public void init()
 	{
@@ -63,6 +68,10 @@ public class ManagerOkolie extends Manager
 	{
 		switch (message.code())
 		{
+		case Mc.noticeVnutornaPrichodZakaznika:
+			processNoticeVnutornaPrichodZakaznika(message);
+		break;
+
 		case Mc.noticeInicializaciaSimulacie:
 			processNoticeInicializaciaSimulacie(message);
 		break;
