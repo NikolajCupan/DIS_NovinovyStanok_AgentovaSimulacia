@@ -28,6 +28,11 @@ public class AgentStanok extends Agent
 		this.stanokObsadeny = false;
 	}
 
+	public double getPriemerneCakanieFrontStanok()
+	{
+		return this.statCakanieFrontStanok.mean();
+	}
+
 	public void pridajCakanieFrontStanok(MessageForm obsluhaZakaznikaSprava)
 	{
 		this.statCakanieFrontStanok.addSample(((MyMessage)obsluhaZakaznikaSprava).getCelkoveCakanieStanok());

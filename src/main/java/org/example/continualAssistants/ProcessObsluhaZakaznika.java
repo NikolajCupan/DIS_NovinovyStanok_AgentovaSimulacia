@@ -17,7 +17,7 @@ public class ProcessObsluhaZakaznika extends Process
 	public void customInit()
 	{
 		this.rngGeneratorNasad = new GeneratorNasad();
-		this.rngObsluhaZakaznika = new TriangularRNG(10.0, 100.0, 150.0, this.rngGeneratorNasad.generator());
+		this.rngObsluhaZakaznika = new TriangularRNG(60.0, 100.0, 180.0, this.rngGeneratorNasad.generator());
 	}
 
 	public ProcessObsluhaZakaznika(int id, Simulation mySim, CommonAgent myAgent)

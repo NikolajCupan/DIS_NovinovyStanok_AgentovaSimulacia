@@ -16,7 +16,7 @@ public class SchedulerPrichodZakaznika extends Scheduler
 	public void customInit()
 	{
 		this.rngGeneratorNasad = new GeneratorNasad();
-		this.rngPrichodZakaznika = new ExponentialRNG(20.0, this.rngGeneratorNasad.generator());
+		this.rngPrichodZakaznika = new ExponentialRNG(100.0, this.rngGeneratorNasad.generator());
 	}
 
 	public SchedulerPrichodZakaznika(int id, Simulation mySim, CommonAgent myAgent)
@@ -36,8 +36,16 @@ public class SchedulerPrichodZakaznika extends Scheduler
 	//meta! sender="AgentOkolie", id="12", type="Start"
 	public void processStart(MessageForm message)
 	{
-		message.setCode(Mc.holdPrichodZakaznika);
-		hold(this.rngPrichodZakaznika.sample(), message);
+		double trvaniePrichodu = this.rngPrichodZakaznika.sample();
+		if (this.mySim().currentTime() + trvaniePrichodu > ((MySimulation)this.mySim()).getTrvanieSimulacie())
+		{
+			// Vyprsanie simulacneho casu, neplanuj dalsie prichody
+		}
+		else
+		{
+			message.setCode(Mc.holdPrichodZakaznika);
+			hold(trvaniePrichodu, message);
+		}
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"
@@ -53,8 +61,6 @@ public class SchedulerPrichodZakaznika extends Scheduler
 			if (this.mySim().currentTime() + trvaniePrichodu > ((MySimulation)this.mySim()).getTrvanieSimulacie())
 			{
 				// Vyprsanie simulacneho casu, neplanuj dalsie prichody
-				System.out.println("Ukoncenie planovania prichodov, dalsi prichod by bol v: "
-					+ Prezenter.naformatujCas(this.mySim().currentTime() + trvaniePrichodu));
 			}
 			else
 			{

@@ -31,7 +31,6 @@ public class ManagerModel extends Manager
 	//meta! sender="AgentStanok", id="10", type="Response"
 	public void processRequestResponseObsluhaZakaznika(MessageForm message)
 	{
-		System.out.println("Ukoncenie obsluhy zakaznika v: " + Prezenter.naformatujCas(this.mySim().currentTime()));
     }
 
 	//meta! sender="AgentOkolie", id="9", type="Notice"

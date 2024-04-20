@@ -1,11 +1,15 @@
 package org.example.simulation;
 
 import OSPABA.*;
+import OSPStat.Stat;
 import org.example.agents.*;
 
 public class MySimulation extends Simulation
 {
 	private double trvanieSimulacie;
+
+	// Statistiky
+	private Stat statCakanieFrontStanok;
 
 	public void customInit(double trvanieSimulacie)
 	{
@@ -17,10 +21,25 @@ public class MySimulation extends Simulation
 		this.trvanieSimulacie = trvanieSimulacie;
 	}
 
+	public void customPrepareSimulation()
+	{
+		this.statCakanieFrontStanok = new Stat();
+	}
+
 	public void customPrepareReplication()
 	{
 		// Spustenie simulacie
 		this.agentModel().odosliInicializacnuSpravu();
+	}
+
+	public void customReplicationFinished()
+	{
+		this.statCakanieFrontStanok.addSample(this.agentStanok().getPriemerneCakanieFrontStanok());
+	}
+
+	public void customSimulationFinished()
+	{
+		System.out.println("Priemerne cakanie: " + this.statCakanieFrontStanok.mean());
 	}
 
 	public double getTrvanieSimulacie()
@@ -40,6 +59,8 @@ public class MySimulation extends Simulation
 	{
 		super.prepareSimulation();
 		// Create global statistcis
+
+		this.customPrepareSimulation();
 	}
 
 	@Override
@@ -56,6 +77,8 @@ public class MySimulation extends Simulation
 	{
 		// Collect local statistics into global, update UI, etc...
 		super.replicationFinished();
+
+		this.customReplicationFinished();
 	}
 
 	@Override
@@ -63,6 +86,8 @@ public class MySimulation extends Simulation
 	{
 		// Dysplay simulation results
 		super.simulationFinished();
+
+		this.customSimulationFinished();
 	}
 
 	//meta! userInfo="Generated code: do not modify", tag="begin"
