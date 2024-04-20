@@ -7,7 +7,7 @@ public class Main
     public static void main(String[] args)
     {
         MySimulation s = new MySimulation();
-        s.onSimulationWillStart(e -> System.out.println("Simulating..."));
+        s.onSimulationWillStart(e -> System.out.println("Simulacia spustena"));
         s.simulate(1);
     }
 }

@@ -30,4 +30,12 @@ public class AgentModel extends Agent
 		addOwnMessage(Mc.noticePrichodZakaznika);
 	}
 	//meta! tag="end"
+
+	public void inicializuj()
+	{
+		MyMessage inicializacnaSprava = new MyMessage(mySim());
+//		inicializacnaSprava.setCode(Mc.init);
+//		inicializacnaSprava.setAddressee(this);
+//		manager().notice(inicializacnaSprava);
+	}
 }

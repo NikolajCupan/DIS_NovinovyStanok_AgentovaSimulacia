@@ -40,6 +40,11 @@ public class ManagerOkolie extends Manager
 		}
 	}
 
+	//meta! sender="AgentModel", id="21", type="Notice"
+	public void processNoticeInicializaciaSimulacie(MessageForm message)
+	{
+	}
+
 	//meta! userInfo="Generated code: do not modify", tag="begin"
 	public void init()
 	{
@@ -50,6 +55,10 @@ public class ManagerOkolie extends Manager
 	{
 		switch (message.code())
 		{
+		case Mc.noticeInicializaciaSimulacie:
+			processNoticeInicializaciaSimulacie(message);
+		break;
+
 		case Mc.finish:
 			processFinish(message);
 		break;

@@ -47,6 +47,14 @@
   </Agents>
   <Messages>
     <Message>
+      <SimId>1003</SimId>
+      <InternalId>21</InternalId>
+      <Name>NoticeInicializaciaSimulacie</Name>
+      <Type>Notice</Type>
+      <Source>1</Source>
+      <Destination>4</Destination>
+    </Message>
+    <Message>
       <InternalId>7</InternalId>
       <Type>Parent</Type>
       <Source>4</Source>
@@ -87,5 +95,5 @@
       <Destination>14</Destination>
     </Message>
   </Messages>
-  <IID>20</IID>
+  <IID>22</IID>
 </ABAsim>
