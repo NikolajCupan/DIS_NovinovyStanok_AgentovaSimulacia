@@ -34,8 +34,8 @@ public class AgentModel extends Agent
 	public void inicializuj()
 	{
 		MyMessage inicializacnaSprava = new MyMessage(mySim());
-//		inicializacnaSprava.setCode(Mc.init);
-//		inicializacnaSprava.setAddressee(this);
-//		manager().notice(inicializacnaSprava);
+		inicializacnaSprava.setCode(Mc.noticeInicializaciaSimulacie);
+		inicializacnaSprava.setAddressee(Id.agentOkolie);
+		manager().notice(inicializacnaSprava);
 	}
 }

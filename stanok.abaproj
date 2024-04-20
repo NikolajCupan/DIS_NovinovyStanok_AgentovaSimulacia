@@ -61,6 +61,14 @@
       <Destination>1</Destination>
     </Message>
     <Message>
+      <SimId>1004</SimId>
+      <InternalId>23</InternalId>
+      <Name>NoticeVnutornaPrichodZakaznika</Name>
+      <Type>Notice</Type>
+      <Source>11</Source>
+      <Destination>4</Destination>
+    </Message>
+    <Message>
       <InternalId>8</InternalId>
       <Type>Parent</Type>
       <Source>6</Source>
@@ -95,5 +103,5 @@
       <Destination>14</Destination>
     </Message>
   </Messages>
-  <IID>22</IID>
+  <IID>24</IID>
 </ABAsim>

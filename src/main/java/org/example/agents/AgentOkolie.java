@@ -9,10 +9,17 @@ import org.example.instantAssistants.*;
 //meta! id="4"
 public class AgentOkolie extends Agent
 {
+	private void customInit()
+	{
+		addOwnMessage(Mc.holdPrichodZakaznika);
+	}
+
 	public AgentOkolie(int id, Simulation mySim, Agent parent)
 	{
 		super(id, mySim, parent);
 		init();
+
+		this.customInit();
 	}
 
 	@Override
