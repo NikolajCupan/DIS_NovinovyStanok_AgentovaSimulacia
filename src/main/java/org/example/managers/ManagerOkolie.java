@@ -57,6 +57,11 @@ public class ManagerOkolie extends Manager
 		notice(message);
 	}
 
+	//meta! sender="AgentModel", id="26", type="Notice"
+	public void processNoticeOdchodZakaznika(MessageForm message)
+	{
+	}
+
 	//meta! userInfo="Generated code: do not modify", tag="begin"
 	public void init()
 	{
@@ -69,6 +74,10 @@ public class ManagerOkolie extends Manager
 		{
 		case Mc.noticeVnutornaPrichodZakaznika:
 			processNoticeVnutornaPrichodZakaznika(message);
+		break;
+
+		case Mc.noticeOdchodZakaznika:
+			processNoticeOdchodZakaznika(message);
 		break;
 
 		case Mc.noticeInicializaciaSimulacie:

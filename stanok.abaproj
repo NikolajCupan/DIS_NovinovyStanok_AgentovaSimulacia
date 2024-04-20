@@ -31,7 +31,7 @@
       <SimId>5</SimId>
       <InternalId>6</InternalId>
       <Name>AgentStanok</Name>
-      <Bounds>1500,734,180,180</Bounds>
+      <Bounds>1500,731,180,180</Bounds>
       <Reasoner>ManagerStanok</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
@@ -91,6 +91,14 @@
       <Destination>6</Destination>
     </Message>
     <Message>
+      <SimId>1005</SimId>
+      <InternalId>26</InternalId>
+      <Name>NoticeOdchodZakaznika</Name>
+      <Type>Notice</Type>
+      <Source>1</Source>
+      <Destination>4</Destination>
+    </Message>
+    <Message>
       <InternalId>12</InternalId>
       <Type>StartFinish</Type>
       <Source>4</Source>
@@ -103,5 +111,5 @@
       <Destination>14</Destination>
     </Message>
   </Messages>
-  <IID>24</IID>
+  <IID>27</IID>
 </ABAsim>

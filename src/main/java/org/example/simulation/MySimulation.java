@@ -34,6 +34,12 @@ public class MySimulation extends Simulation
 
 	public void customReplicationFinished()
 	{
+		int aktualnaReplikacia = this.currentReplication() + 1;
+		if (aktualnaReplikacia % 5000 == 0)
+		{
+			System.out.println("Aktualna replikacia: " + aktualnaReplikacia);
+		}
+
 		this.statCakanieFrontStanok.addSample(this.agentStanok().getPriemerneCakanieFrontStanok());
 	}
 

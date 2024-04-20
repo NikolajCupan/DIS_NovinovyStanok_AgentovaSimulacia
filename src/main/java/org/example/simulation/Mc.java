@@ -9,6 +9,7 @@ public class Mc extends IdList
 	public static final int noticeVnutornaPrichodZakaznika = 1004;
 	public static final int noticePrichodZakaznika = 1001;
 	public static final int requestResponseObsluhaZakaznika = 1002;
+	public static final int noticeOdchodZakaznika = 1005;
 	//meta! tag="end"
 
 	// 1..1000 range reserved for user

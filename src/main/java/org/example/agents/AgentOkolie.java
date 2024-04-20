@@ -34,6 +34,7 @@ public class AgentOkolie extends Agent
 	{
 		new ManagerOkolie(Id.managerOkolie, mySim(), this);
 		new SchedulerPrichodZakaznika(Id.schedulerPrichodZakaznika, mySim(), this);
+		addOwnMessage(Mc.noticeOdchodZakaznika);
 		addOwnMessage(Mc.noticeVnutornaPrichodZakaznika);
 		addOwnMessage(Mc.noticeInicializaciaSimulacie);
 	}
